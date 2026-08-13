@@ -12,5 +12,8 @@
   "type": "commonjs",
   "devDependencies": {
     "electron": "^43.4.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3"
   }
 }
