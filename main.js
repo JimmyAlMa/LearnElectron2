@@ -30,10 +30,10 @@ db.exec(`
 ipcMain.handle('get-todos', () => {
     return db.prepare('SELECT * FROM todos ORDER BY id DESC').all()
 })
-ipcMain.handle('add-todos', () => {
-    return db.prepare('INSERT INTO todos (task) VALUE (?)').run(taskText)
+ipcMain.handle('add-todos', (event, taskText) => {
+    return db.prepare('INSERT INTO todos (task) VALUES (?)').run(taskText)
 })
-ipcMain.handle('delete-todos', () => {
+ipcMain.handle('delete-todos', (event, id) => {
     return db.prepare('DELETE FROM todos WHERE id = ?').run(id)
 })
 
