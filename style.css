@@ -24,6 +24,7 @@ nav {
 #mainContainer {
     display: flex;
     flex: 1;
+    overflow: hidden;
 } 
 #firstContainer {
     display: flex;
@@ -48,7 +49,15 @@ nav {
 #secondContainer {
     width: 75%;
     padding: 10px;
+    overflow-y: auto;
 }
 #dataList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     list-style: none;
+}
+#dataList li {
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
