@@ -36,3 +36,5 @@ dataList.addEventListener('click', (event) => {
         }
     }
 })
+
+loadTodos()
