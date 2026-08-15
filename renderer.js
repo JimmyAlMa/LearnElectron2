@@ -21,19 +21,19 @@ addButton.addEventListener('click', async () => {
     if (!text) return
 
     await window.databaseApi.addTodos(text)
-    addInput.value = ''
+    textInput.value = ''
     loadTodos() // Refresh list
 })
 
-dataList.addEventListener('click', (event) => {
+dataList.addEventListener('click', async (event) => {
     const target = event.target
 
     if (target.closest('.deleteButton')) {
         const listItem = target.closest('.list')
+        const id = listItem.dataset.id
 
-        if (listItem) {
-            listItem.remove()
-        }
+        await window.databaseApi.deleteTodos(id)
+        loadTodos() // Refresh list
     }
 })
 
