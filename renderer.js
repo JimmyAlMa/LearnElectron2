@@ -10,3 +10,15 @@ addButton.addEventListener('click', () => {
         </li>
         `)
 })
+
+dataList.addEventListener('click', (event) => {
+    const target = event.target
+
+    if (target.closest('.deleteButton')) {
+        const listItem = target.closest('.list')
+
+        if (listItem) {
+            listItem.remove()
+        }
+    }
+})
