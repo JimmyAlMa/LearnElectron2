@@ -1,11 +1,11 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron')
-const Databse = require('better-sqlite3')
+const Database = require('better-sqlite3')
 const path = require('path')
 const fs = require('fs')
 
 function createWindow() {
     const win = new BrowserWindow({
-        width: 900,
+        width: 1000,
         height: 700,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
@@ -16,3 +16,5 @@ function createWindow() {
 
     win.loadFile('index.html')
 }
+
+app.whenReady().then(createWindow)
