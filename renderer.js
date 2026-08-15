@@ -16,17 +16,13 @@ async function loadTodos() {
     })
 }
 
-addButton.addEventListener('click', () => {
-    dataList.insertAdjacentHTML('beforeend', `
-        <li class="list">
-            <div><b>${textInput.value}</b></div>
-            <button class="deleteButton"><b>Delete</b></button>
-            <br><br>
-            <hr>
-        </li>
-        `)
+addButton.addEventListener('click', async () => {
+    const text = addInput.value.trim()
+    if (!text) return
 
-        textInput.value = ''
+    await window.api.addTodo(text)
+    addInput.value = ''
+    loadTodos() // Refresh list
 })
 
 dataList.addEventListener('click', (event) => {
