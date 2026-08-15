@@ -11,6 +11,8 @@ addButton.addEventListener('click', () => {
             <hr>
         </li>
         `)
+
+        textInput.value = ''
 })
 
 dataList.addEventListener('click', (event) => {
