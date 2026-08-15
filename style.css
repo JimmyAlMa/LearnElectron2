@@ -49,3 +49,6 @@ nav {
     width: 75%;
     padding: 10px;
 }
+#dataList {
+    list-style: none;
+}
