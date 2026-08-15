@@ -17,4 +17,18 @@ function createWindow() {
     win.loadFile('index.html')
 }
 
+const db = new Database(path.join(__dirname, 'to-doList_data.db'))
+
+db.exec(`
+    CREATE TABLE IF NOT EXISTS todos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        task TEXT NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+`)
+
+ipcMain.handle('get-todos', () => {
+    return db.prepare('SELECT * FROM todos ORDER BY id DESC').all()
+})
+
 app.whenReady().then(createWindow)
