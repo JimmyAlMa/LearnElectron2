@@ -30,5 +30,8 @@ db.exec(`
 ipcMain.handle('get-todos', () => {
     return db.prepare('SELECT * FROM todos ORDER BY id DESC').all()
 })
+ipcMain.handle('add-todos', () => {
+    return db.prepare('INSERT INTO todos (task) VALUE (?)').run(taskText)
+})
 
 app.whenReady().then(createWindow)
