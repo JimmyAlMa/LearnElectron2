@@ -33,5 +33,8 @@ ipcMain.handle('get-todos', () => {
 ipcMain.handle('add-todos', () => {
     return db.prepare('INSERT INTO todos (task) VALUE (?)').run(taskText)
 })
+ipcMain.handle('delete-todos', () => {
+    return db.prepare('DELETE FROM todos WHERE id = ?').run(id)
+})
 
 app.whenReady().then(createWindow)
