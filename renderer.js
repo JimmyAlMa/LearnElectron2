@@ -7,6 +7,8 @@ addButton.addEventListener('click', () => {
         <li class="list">
             <div><b>${textInput.value}</b></div>
             <button class="deleteButton"><b>Delete</b></button>
+            <br><br>
+            <hr>
         </li>
         `)
 })
