@@ -3,6 +3,28 @@ const Database = require('better-sqlite3')
 const path = require('path')
 const fs = require('fs')
 
+let db
+
+function initDatabase() {
+    const userDataPath = app.getPath('userData')
+
+    if (!fs.existsSync(userDataPath)) {
+        fs.mkdirSync(userDataPath, {recursive: true})
+    }
+
+    const dbPath = path.join(userDataPath, 'todo_app.db')
+    db = new Database(dbPath)
+
+    db.exec(`
+        CREATE TABLE IF NOT EXISTS todos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            task TEXT NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    `)
+}
+
+
 function createWindow() {
     const win = new BrowserWindow({
         width: 1000,
@@ -17,16 +39,6 @@ function createWindow() {
     win.loadFile('index.html')
 }
 
-const db = new Database(path.join(__dirname, 'to-doList_data.db'))
-
-db.exec(`
-    CREATE TABLE IF NOT EXISTS todos (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        task TEXT NOT NULL,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )
-`)
-
 ipcMain.handle('get-todos', () => {
     return db.prepare('SELECT * FROM todos ORDER BY id DESC').all()
 })
@@ -37,4 +49,7 @@ ipcMain.handle('delete-todos', (event, id) => {
     return db.prepare('DELETE FROM todos WHERE id = ?').run(id)
 })
 
-app.whenReady().then(createWindow)
+app.whenReady().then(() => {
+    initDatabase()
+    createWindow()
+})
